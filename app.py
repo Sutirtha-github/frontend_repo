@@ -32,9 +32,12 @@ def greet_name(name: str):
         response = requests.get(f"{API_BASE}/{name}")
         response.raise_for_status()
         data = response.json()
-        return list(data.values())[0]
+        # since the key is dynamic, just grab the first value
+        greeting = list(data.keys())[0] + " : " + list(data.values())[0]
+        return greeting
     except Exception as e:
         return f"Error: {e}"
+
 
 def main():
     st.title("Bank Authenticator")
@@ -69,6 +72,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
