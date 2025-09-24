@@ -13,6 +13,7 @@ def predict_note_authentication(variance, skewness, curtosis, entropy):
             "entropy": float(entropy)
         }
         response = requests.post(API_URL, json=payload)
+        response.raise_for_status()
         result = response.json()
         return result.get("prediction", "No prediction returned")
     except Exception as e:
@@ -43,6 +44,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
