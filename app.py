@@ -3,6 +3,7 @@ import requests
 
 
 API_URL = "https://fastapi-backend-5c7d33b84556.herokuapp.com/predict"
+API_BASE = "https://fastapi-backend-5c7d33b84556.herokuapp.com"
 
 def predict_note_authentication(variance, skewness, curtosis, entropy):
     try:
@@ -13,9 +14,25 @@ def predict_note_authentication(variance, skewness, curtosis, entropy):
             "entropy": float(entropy)
         }
         response = requests.post(API_URL, json=payload)
-        response.raise_for_status()
         result = response.json()
         return result.get("prediction", "No prediction returned")
+    except Exception as e:
+        return f"Error: {e}"
+
+def get_message():
+    try:
+        response = requests.get(f"{API_BASE}/")
+        response.raise_for_status()
+        return response.json().get("Mission", "No message")
+    except Exception as e:
+        return f"Error: {e}"
+
+def greet_name(name: str):
+    try:
+        response = requests.get(f"{API_BASE}/{name}")
+        response.raise_for_status()
+        data = response.json()
+        return list(data.values())[0]
     except Exception as e:
         return f"Error: {e}"
 
@@ -39,11 +56,20 @@ def main():
         st.success(f'The output is {result}')
 
     if st.button("About"):
-        st.text("We don't follow the future. We build it!")
         st.text("Built with Streamlit")
+
+    if st.button("Mission"):
+        mission = get_mission()
+        st.success(f"Mission: {mission}")
+
+    if st.button("Greetings"):
+        name = st.text_input("Enter your name")
+        greeting = greet_name(name)
+        st.success(greeting)
 
 if __name__ == '__main__':
     main()
+
 
 
 
