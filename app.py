@@ -65,13 +65,15 @@ def main():
         mission = get_message()
         st.success(f"Mission: {mission}")
 
+    name = st.text_input("Enter your name")
     if st.button("Greetings"):
-        name = st.text_input("Enter your name")
+        
         greeting = greet_name(name)
         st.success(greeting)
 
 if __name__ == '__main__':
     main()
+
 
 
 
