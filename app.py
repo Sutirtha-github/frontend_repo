@@ -59,7 +59,7 @@ def main():
         st.text("Built with Streamlit")
 
     if st.button("Mission"):
-        mission = get_mission()
+        mission = get_message()
         st.success(f"Mission: {mission}")
 
     if st.button("Greetings"):
@@ -69,6 +69,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
