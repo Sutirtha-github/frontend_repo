@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 
-API_URL = "https://fastapi-backend.herokuapp.com"
+API_URL = "https://fastapi-backend.herokuapp.com/predict"
 
 def predict_note_authentication(variance, skewness, curtosis, entropy):
     try:
@@ -43,5 +43,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
